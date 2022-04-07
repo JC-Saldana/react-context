@@ -5,11 +5,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, Container } from '@mui/material';
 import { useParams } from 'react-router';
-import Grid from '@mui/material/Grid';
 import { getPokemon } from "../services/PokemonService"
 import { Link } from 'react-router-dom';
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
 
 export default function Home() {
 

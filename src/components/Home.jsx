@@ -11,18 +11,10 @@ import { Link } from 'react-router-dom';
 import { getPokemon } from "../services/PokemonService"
 
 export default function Home() {
-    /*  const [formData, setFormData] = React.useState({}) */
-    /*   const [message, setMessage] = React.useState("") */
-    
+
     const [pokemon, setPokemon] = React.useState(null)
     const [cards, setCards] = usePokemon()
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        /*  newBeer(formData).then((res) => {
-             setMessage(res.message)
-         }) */
-    }
     const handleChange = (e) => {
         if (e.target.value.length) {
             getPokemon(e.target.value).then(pokemon => {
@@ -32,12 +24,6 @@ export default function Home() {
                 }
             })
         }
-        /* const { name, value } = e.target
-        if (name === "attenuation_level") {
-            setFormData({ ...formData, [name]: Number(value) })
-        } else {
-            setFormData({ ...formData, [name]: value })
-        } */
     }
 
     const addCard = () => {
@@ -49,13 +35,11 @@ export default function Home() {
             <Grid container spacing={2} pt={4}>
                 <Grid item xs={4}>
                     <Paper>
-                        <form onSubmit={handleSubmit}>
-                            <FormControl>
-                                <InputLabel htmlFor="Name">Pokemon<sub> exact name</sub> </InputLabel>
-                                <Input id="Name" name="name" aria-describedby="my-helper-text" onChange={handleChange} />
-                            </FormControl>
-                            <br /><br />
-                        </form>
+                        <FormControl>
+                            <InputLabel htmlFor="Name">Pokemon<sub> exact name</sub> </InputLabel>
+                            <Input id="Name" name="name" aria-describedby="my-helper-text" onChange={handleChange} />
+                        </FormControl>
+                        <br /><br />
                         <button onClick={addCard}>Add Card</button>
                         {!pokemon && <p>Search for a pokemon exact name, like pikachu or ditto</p>}
                         {pokemon && <>
