@@ -3,23 +3,53 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea, Container } from '@mui/material';
+import { Button, CardActionArea, Container } from '@mui/material';
+import { useParams } from 'react-router';
 import Grid from '@mui/material/Grid';
-import { getPokemon } from "../services/BeerService"
+import { getPokemon } from "../services/PokemonService"
 import { Link } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
 export default function Home() {
 
-  const test = React.useParams()
-  console.log(test)
+    const { name } = useParams()
+    const [pokemon, setPokemon] = React.useState(null)
+
+    React.useEffect(() => {
+        getPokemon(name).then(pokemon => setPokemon(pokemon))
+    }, [])
 
     return (
         <Container>
-            <Grid container spacing={2} pt={4}>
-              
-            </Grid>
+            {pokemon &&
+                <Card sx={{ maxWidth: 145 }}>
+                    <CardActionArea>
+                        <CardMedia
+                            component="img"
+                            height="150"
+                            image={pokemon.sprites.front_default}
+                            alt="img"
+                        />
+                        <CardContent>
+                            <Typography gutterBottom variant="h5" component="div">
+                                {pokemon.name}
+                            </Typography>
+                            <p>Games with this pokemon:</p>
+                            <Typography variant="body2" color="text.secondary">
+                                {pokemon.game_indices.map(game => {
+                                    return (
+                                        <p>{game.version.name}</p>
+                                    )
+                                })}
+                            </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
+            }
+            <Link to={`/home`} style={{ textDecoration: "none" }}>
+                <Button>Go back</Button>
+            </Link>
         </Container>
     );
 }

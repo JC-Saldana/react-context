@@ -3,20 +3,19 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea, Container, FormControl, Button, Input, InputLabel, Paper } from '@mui/material';
+import { CardActionArea, Container, FormControl, Input, InputLabel, Paper } from '@mui/material';
+import { usePokemon } from "../contexts/PokemonContext"
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import allBeers from "../assets/beers.png"
-import newBeer from "../assets/new-beer.png"
-import randomBeer from "../assets/random-beer.png"
 import { Link } from 'react-router-dom';
-import { getPokemon } from "../services/BeerService"
+import { getPokemon } from "../services/PokemonService"
 
 export default function Home() {
     /*  const [formData, setFormData] = React.useState({}) */
     /*   const [message, setMessage] = React.useState("") */
+    
     const [pokemon, setPokemon] = React.useState(null)
-    const [cards, setCards] = React.useState([])
+    const [cards, setCards] = usePokemon()
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -52,7 +51,7 @@ export default function Home() {
                     <Paper>
                         <form onSubmit={handleSubmit}>
                             <FormControl>
-                                <InputLabel htmlFor="Name">Pokemon<sub>exact name</sub> </InputLabel>
+                                <InputLabel htmlFor="Name">Pokemon<sub> exact name</sub> </InputLabel>
                                 <Input id="Name" name="name" aria-describedby="my-helper-text" onChange={handleChange} />
                             </FormControl>
                             <br /><br />
@@ -103,7 +102,7 @@ export default function Home() {
                             </Card>
                         </Grid>
                     )) :
-                    <Box sx={{ display: 'flex' }}>
+                    <Box sx={{ display: 'flex' }} m={2}>
                         <p>You need to add a card...</p>
                     </Box>
                 }
